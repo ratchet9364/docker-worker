@@ -23,7 +23,7 @@ app.use(
       const { a, b } = req.body
       task = { a, b }
       console.log('mult', req.body)
-      const duration = randInt(3000, 12000)
+      const duration = randInt(3000, 4000)
       setTimeout(() => {
         mult = false
         res.send(JSON.stringify({ res: a * b, duration }))
@@ -40,7 +40,7 @@ app.use(
       const { a, b } = req.body
       task = { a, b }
       console.log('add', req.body)
-      const duration = randInt(3000, 7000)
+      const duration = randInt(3000, 4000)
       setTimeout(() => {
         add = false
         res.send(JSON.stringify({ res: a + b, duration }))

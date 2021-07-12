@@ -1,0 +1,23 @@
+# docker-compose.yml
+version: '3'
+
+services:
+    cont_worker:
+        build:
+            dockerfile: DockerfileWorker
+            context: ./worker
+        # container_name: cont_worker
+        image: worker
+        ports:
+        - 8080:8080
+        command: node worker
+
+    cont_planner:
+        build:
+            dockerfile: DockerfilePlanner
+            context: ./planner
+        # container_name: cont_planner
+        image: planner
+        depends_on:
+        - cont_worker
+        command: node planner
