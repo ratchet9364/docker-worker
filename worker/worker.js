@@ -1,7 +1,7 @@
 require('dotenv').config()
 const express = require('express')
 const app = express()
-const port = process.env.PORT || 3000
+const port = [3000,3100,3200,3300]
 const randInt = (min, max) => Math.floor(Math.random() * (max - min)) + min
 let mult = false
 let add = false
@@ -14,11 +14,7 @@ app.use(
   })
 )
     app.post('/mult', (req, res) => {
-      if (mult) {
-        console.error('mult', 'Already working')
-        res.status(403).send('Already working')
-        return
-      }
+
       mult = true
       const { a, b } = req.body
       task = { a, b }
@@ -31,11 +27,7 @@ app.use(
     })
 
     app.post('/add', (req, res) => {
-      if (add) {
-        console.error('add', 'Already working')
-        res.status(403).send('Already working')
-        return
-      }
+
       add = true
       const { a, b } = req.body
       task = { a, b }
@@ -59,6 +51,9 @@ app.get('/', (req, res) => {
   res.send('ready to work')
 })
 
-app.listen(port, () => {
-  console.log(`Worker listening at http://localhost:${port}`)
-})
+for (i=0;i<port.length;i++){
+  app.listen(port[i], () => {
+    console.log(`Worker listening at http://localhost:${port}`)
+  })
+}
+  
