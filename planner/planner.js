@@ -1,6 +1,6 @@
 require('dotenv').config()
 const fetch = require('node-fetch')
-const nbTasks = parseInt(process.env.TASKS) || 4
+const nbTasks = parseInt(process.env.TASKS) || 5
 
 const randInt = (min, max) => Math.floor(Math.random() * (max - min)) + min
 const taskType = () => (randInt(0, 2) ? 'mult' : 'add')
@@ -9,7 +9,7 @@ const args = () => ({ a: randInt(0, 40), b: randInt(0, 40) })
 const generateTasks = i =>
   new Array(i).fill(1).map(_ => ({ type: taskType(), args: args() }))
 
-let workers = ['http://localhost:3000','http://localhost:3100','http://localhost:3200','http://localhost:3300']
+let workers = ['http://localhost:3000','http://localhost:4000']
 let tasks = generateTasks(nbTasks)
 let taskToDo = nbTasks
 
@@ -47,7 +47,10 @@ const main = async () => {
   while (taskToDo > 0) {
     await wait(100)
     if (workers.length === 0 || tasks.length === 0) continue
-    sendTask(workers[0], tasks[0])
+    if(workers[0] == 'http://localhost:3000' && tasks[0].type != 'mult')
+      continue
+    else 
+      sendTask(workers[0], tasks[0])
   }
 }
 

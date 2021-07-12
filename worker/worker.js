@@ -1,7 +1,7 @@
 require('dotenv').config()
 const express = require('express')
 const app = express()
-const port = [3000,3100,3200,3300]
+const port = [3000,4000]
 const randInt = (min, max) => Math.floor(Math.random() * (max - min)) + min
 let mult = false
 let add = false
@@ -14,7 +14,7 @@ app.use(
   })
 )
     app.post('/mult', (req, res) => {
-
+      
       mult = true
       const { a, b } = req.body
       task = { a, b }
